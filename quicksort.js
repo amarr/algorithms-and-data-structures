@@ -1,3 +1,4 @@
+/** QuickSort **/
 (function(root) {
 	/**
 	 * @method sort
