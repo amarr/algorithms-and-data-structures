@@ -1,4 +1,4 @@
-/** Linked List **/
+/* Linked List **/
 (function(root) {
 	// Element class
 	function Element(body) {

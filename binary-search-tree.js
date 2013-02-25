@@ -1,3 +1,4 @@
+/* Binary Search Tree */
 (function(root) {
 	var LESS = -1;
 	var GREATER = 1;
