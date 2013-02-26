@@ -1,58 +1,58 @@
 <!doctype html>
 <html>
-	<head>
-		<script src="quicksort.js"></script>
-		<script src="linked-list.js"></script>
-		<script>
-			// Usage
-			(function() {
-				console.info('QuickSort');
+    <head>
+        <script src="quicksort.js"></script>
+        <script src="linked-list.js"></script>
+        <script>
+            // Usage
+            (function() {
+                console.info('QuickSort');
 
-				var result = quicksort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
+                var result = quicksort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
 
-				console.log(result);
-			})();
+                console.log(result);
+            })();
 
-			(function() {
-				console.info('LinkedList');
+            (function() {
+                console.info('LinkedList');
 
-				var list = new LinkedList();
-				list.add('foo');
-				list.add('bar');
-				list.add('baz');
-				list.add('qux');
+                var list = new LinkedList();
+                list.add('foo');
+                list.add('bar');
+                list.add('baz');
+                list.add('qux');
 
-				function print(list) {
-					var el = list.head();
+                function print(list) {
+                    var el = list.head();
 
-					if(el == null) {
-						console.log('<empty list>');
-						return;
-					}
-					do {
-						console.log(el.body());
-					}
-					while((el = el.next()) != null);
-					console.log('--');
-				}
+                    if(el == null) {
+                        console.log('<empty list>');
+                        return;
+                    }
+                    do {
+                        console.log(el.body());
+                    }
+                    while((el = el.next()) != null);
+                    console.log('--');
+                }
 
-				print(list);
+                print(list);
 
-				list.removeAfter(list.head());
-				print(list);
+                list.removeAfter(list.head());
+                print(list);
 
-				list.removeAfter(list.head());
-				print(list);
+                list.removeAfter(list.head());
+                print(list);
 
-				list.removeAfter(list.head());
-				print(list);
+                list.removeAfter(list.head());
+                print(list);
 
-				list.empty();
-				print(list);
-			})();
-		</script
-	</head>
-	<body>
+                list.empty();
+                print(list);
+            })();
+        </script
+    </head>
+    <body>
 
-	</body>
+    </body>
 </html>
