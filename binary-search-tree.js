@@ -98,8 +98,7 @@
 
         replaceWith : function(el) {
             if(this.hasNoParent()) {
-                throw 'No parent!';
-                return;
+                // Do nothing
             }
             else if(this.parent().left().is(this)) {
                 this.parent().left(el);
@@ -127,6 +126,7 @@
     };
 
     function BinarySearchTree() {
+        this._count = 0;
         this._root = null;
         this._replaceMethod = 0;
     };
@@ -158,10 +158,15 @@
             }
         },
 
+        count : function() {
+            return this._count;
+        },
+
         insert : function(key) {
             var el = new Element(key);
             if(this._root == null) {
                 this._root = el;
+                this._count++;
                 return el;
             }
 
@@ -175,12 +180,14 @@
                 case LESS:
                     parent = root.right();
                     if(parent == null) {
+                        this._count++;
                         return root.right(el);
                     }
                     break;
                 case GREATER:
                     parent = root.left();
                     if(parent == null) {
+                        this._count++;
                         return root.left(el);
                     }
                     break;
@@ -215,9 +222,10 @@
             if(el.hasNoChildren()) {
                 if(el.hasNoParent()) {
                     this._root = null;
-                    return;
                 }
                 
+                this._count--;
+
                 el.replaceWith(null)
 
                 return;
@@ -226,9 +234,10 @@
             // 1
             if(el.hasOneChild()) {
                 if(el.hasNoParent()) {
-                    this._root = null;
-                    return;
+                    this._root = el.onlyChild();
                 }
+
+                this._count--;
 
                 el.replaceWith(el.onlyChild());
 
@@ -238,10 +247,24 @@
             // 2 - naive
             if(this._replaceMethod == 0) {
                 this._replaceMethod = 1;
+
+                if(el.hasNoParent()) {
+                    this._root = el.left();
+                }
+
+                this._count--;
+
                 el.replaceWith(el.left());
             }
             else {
                 this._replaceMethod = 0;
+
+                if(el.hasNoParent()) {
+                    this._root = el.right();
+                }
+
+                this._count--;
+
                 el.replaceWith(el.right());
             }
         },
