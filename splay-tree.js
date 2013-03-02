@@ -1,21 +1,11 @@
 (function(global) {
 
-    function Element() {
-
-    }
-
-    Element.prototype = new global.Element();
-    Element.prototype.constructor = Element;
-
-    _.extend(Element.prototype, {
-        super : global.Element.prototype,
-
-
-    });
-
-    function SplayTree() {
-
-    }
+    /**
+     * @class SplayTree
+     * @constructor
+     * @extends {BinarySearchTree}
+     */
+    function SplayTree() {}
 
     SplayTree.prototype = new global.BinarySearchTree();
     SplayTree.prototype.constructor = SplayTree;
@@ -24,7 +14,6 @@
         super : global.BinarySearchTree.prototype,
 
         insert : function(key) {
-            console.info(key);
             var el = this.super.insert.call(this, key);
 
             while(!el.isRoot()) {
@@ -35,7 +24,6 @@
         },
 
         remove : function(key) {
-            console.info(key);
             var el = this.super.remove.call(this, key);
 
             if(el != null) {
@@ -54,7 +42,6 @@
 
             // parent is root
             var zig = function() {
-                console.log('zig');
                 if(el.isLeftChild()) {
                     this.rotateRight(el.parent());
                 }
@@ -66,7 +53,6 @@
             // parent not root and both are left or right
             // Rotate grandparent then parent
             var zigzig = function() {
-                console.log('zigzig');
                 if(el.isLeftChild()) {
                     this.rotateRight(el.parent().parent());
                     this.rotateRight(el.parent());
@@ -79,8 +65,6 @@
 
             // parent not root and both are opposites
             var zigzag = function() {
-                console.log('zigzag');
-
                 // Rotate first parent
                 if(el.isLeftChild()) {
                     this.rotateRight(el.parent());

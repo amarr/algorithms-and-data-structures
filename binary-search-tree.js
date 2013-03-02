@@ -4,7 +4,12 @@
     var GREATER = 1;
     var EQUAL = 0;
 
-    // Element class
+    /**
+     * @class Element
+     * @constructor
+     * @param {Number} key
+     * @param {Object} record
+     */
     function Element(key, record) {
         this._key = key;
         this.record = record;
@@ -194,8 +199,8 @@
     };
 
     /**
-     * BinarySearchTree
-     * @type {Class}
+     * @class  BinarySearchTree
+     * @constructor
      */
     function BinarySearchTree() {
         this._count = 0;
