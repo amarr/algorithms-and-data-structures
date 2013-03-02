@@ -1,5 +1,5 @@
 /* Binary Search Tree */
-(function(root) {
+(function(global) {
     var LESS = -1;
     var GREATER = 1;
     var EQUAL = 0;
@@ -32,6 +32,16 @@
 
         is : function(el) {
             return this.key() == el.key();
+        },
+
+        isLeftChild : function() {
+            var l = this.parent().left();
+            return l != null && l.is(this);
+        },
+
+        isRightChild : function() {
+            var r = this.parent().right();
+            return r != null && r.is(this);
         },
 
         key : function() {
@@ -100,10 +110,10 @@
             if(this.hasNoParent()) {
                 // Do nothing
             }
-            else if(this.parent().left().is(this)) {
+            else if(this.isLeftChild()) {
                 this.parent().left(el);
             }
-            else if(this.parent().right().is(this)) {
+            else if(this.isRightChild()) {
                 this.parent().right(el);
             }
 
@@ -122,19 +132,77 @@
                 el.right(this.right());
                 this.right().parent(el);
             }
-        }
-    };
+        },
 
-    function BinarySearchTree() {
-        this._count = 0;
-        this._root = null;
-        this._replaceMethod = 0;
+        rotateRight : function() {
+            if(!this.hasLeftChild()) {
+                return this;
+            }
+
+            var newParent = this.left();
+
+            if(!this.isRoot()) {
+                if(this.parent().hasLeftChild() && this.isLeftChild()) {
+                    this.parent().left(newParent);
+                }
+                else if(this.parent().hasRightChild() && this.isRightChild()) {
+                    this.parent().right(newParent);
+                }
+            }
+
+            this.left(newParent.right());
+
+            newParent.parent(this.parent());
+
+            this.parent(newParent);
+
+            newParent.right(this);
+
+            return this;
+        },
+
+        rotateLeft : function() {
+            if(!this.hasRightChild()) {
+                return this;
+            }
+
+            var newParent = this.right();
+
+            if(!this.isRoot()) {
+                if(this.parent().hasLeftChild() && this.isLeftChild()) {
+                    this.parent().left(newParent);
+                }
+                else if(this.parent().hasRightChild() && this.isRightChild()) {
+                    this.parent().right(newParent);
+                }
+            }
+
+            this.right(newParent.left());
+
+            newParent.parent(this.parent());
+
+            this.parent(newParent);
+
+            newParent.left(this);
+
+            return this;            
+        },
+
+        isRoot : function() {
+            return this.parent() == null;
+        }
     };
 
     /**
      * BinarySearchTree
      * @type {Class}
      */
+    function BinarySearchTree() {
+        this._count = 0;
+        this._root = null;
+        this._replaceMethod = 0;
+    };
+
     BinarySearchTree.prototype = {
         search : function(key, root) {
             if(arguments.length == 1) {
@@ -155,6 +223,22 @@
                 case EQUAL:
                     return root;
                     break;
+            }
+        },
+
+        rotateRight : function(el) {
+            el.rotateRight();
+
+            if(!el.isRoot() && el.parent().isRoot()) {
+                this._root = el.parent();
+            }
+        },
+
+        rotateLeft : function(el) {
+            el.rotateLeft();
+
+            if(!el.isRoot() && el.parent().isRoot()) {
+                this._root = el.parent();
             }
         },
 
@@ -211,7 +295,7 @@
             }
 
             if(el == null) {
-                return;
+                return null;
             }
 
             return this._remove(el);
@@ -228,7 +312,7 @@
 
                 el.replaceWith(null)
 
-                return;
+                return el;
             }
 
             // 1
@@ -241,7 +325,7 @@
 
                 el.replaceWith(el.onlyChild());
 
-                return;
+                return el;
             }
 
             // 2 - naive
@@ -267,6 +351,8 @@
 
                 el.replaceWith(el.right());
             }
+
+            return el;
         },
 
         root : function() {
@@ -274,5 +360,6 @@
         }
     };
 
-    root.BinarySearchTree = BinarySearchTree;
+    global.Element = Element;
+    global.BinarySearchTree = BinarySearchTree;
 })(this);

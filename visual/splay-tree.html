@@ -8,11 +8,13 @@
 
         </table>
 
+        <script type="text/javascript" src="../util/underscore-min.js"></script>
         <script type="text/javascript" src="raphael-min.js"></script>
         <script type="text/javascript" src="tree-visuals.js"></script>
         <script src="../binary-search-tree.js"></script>
+        <script src="../splay-tree.js"></script>
         <script>
-            var tree = new BinarySearchTree();
+            var tree = new SplayTree();
 
             tree.insert(30);
             tree.insert(34);
@@ -25,18 +27,12 @@
             tree.insert(87);
             tree.insert(55);
             tree.insert(16);
-
             drawTree(tree);
 
-            setTimeout(function() {
-                tree.rotateRight(tree.root());
-                drawTree(tree);
-
-                setTimeout(function() {
-                    tree.rotateLeft(tree.search(7));
-                    drawTree(tree);
-                }, 2000);
-            }, 2000);
+            tree.remove(2);
+            drawTree(tree);
+            tree.remove(28);
+            drawTree(tree);
         </script>
     </body>
 </html>

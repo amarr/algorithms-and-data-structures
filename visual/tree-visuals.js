@@ -1,6 +1,7 @@
 (function(that) {
 
-    var base = 50;
+    var sh = 0;
+    var base = 30;
 
     /**
      * Recursively determine tree height by locating 
@@ -48,7 +49,7 @@
      */
     function circle(paper, x, y, val) {
         // Creates circle at x = 50, y = 40, with radius 10
-        var circle = paper.circle(x, y, 15);
+        var circle = paper.circle(x, y, 10);
         // Sets the fill attribute of the circle to red (#f00)
         circle.attr("fill", "#f00");
 
@@ -124,9 +125,16 @@
         var cH = base * h;
 
         // Creates canvas
-        var paper = Raphael(10, 10, cW, cH);
+        if(paper != null) { 
+            paper.clear();   
+            paper.remove(); 
+        }
+        
+        var paper = Raphael(0, sh, cW, cH);
 
         draw(paper, tree.root(), 1, cW / 2, cW / 2);
+
+        sh += (cH + 10);
     }
 
     that.drawTree = drawTree;
