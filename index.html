@@ -2,13 +2,22 @@
 <html>
     <head>
         <script src="quicksort.js"></script>
+        <script src="mergesort.js"></script>
         <script src="linked-list.js"></script>
         <script>
             // Usage
             (function() {
+                var result;
+
                 console.info('QuickSort');
 
-                var result = quicksort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
+                result = quicksort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
+
+                console.log(result);
+
+                console.info('MergeSort');
+
+                result = mergesort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
 
                 console.log(result);
             })();
