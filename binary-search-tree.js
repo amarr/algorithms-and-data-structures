@@ -85,8 +85,27 @@
             return this._parent;
         },
 
+        sibling : function() {
+            if(this.isRoot()) {
+                return null;
+            }
+            else if(this.parent().left().is(this) && this.parent().hasRightChild()) {
+                return this.parent().right();
+            }
+            else if(this.parent().right().is(this) && this.parent().hasLeftChild()) {
+                return this.parent().left();
+            }
+            else {
+                return null;
+            }
+        },
+
         hasNoChildren : function() {
             return !this.hasLeftChild() && !this.hasRightChild();
+        },
+
+        hasParent : function() {
+            return this.parent() != null;
         },
 
         hasNoParent : function() {
@@ -103,6 +122,10 @@
 
         hasOneChild : function() {
             return (this.hasRightChild() && !this.hasLeftChild()) || (!this.hasRightChild() && this.hasLeftChild());
+        },
+
+        hasBothChildren : function() {
+            return this.hasLeftChild() && this.hasRightChild();
         },
 
         onlyChild : function() {
@@ -132,10 +155,38 @@
                 el.left(this.left());
                 this.left().parent(el);
             }
+            else {
+                el.left(null);
+            }
 
             if(this.hasRightChild() && !this.right().is(el)) {
                 el.right(this.right());
                 this.right().parent(el);
+            }
+            else {
+                el.right(null);
+            }
+        },
+
+        swapWithParent : function() {
+            if(this.isRoot()) {
+                return this;
+            }
+
+            var p = this.parent();
+            var l = this.left();
+            var r = this.right();
+
+            p.replaceWith(this);
+            p.left(l);
+            p.right(r);
+
+            // There will only be one child, since we used be the other child.
+            if(this.hasLeftChild()) {
+                this.right(p);
+            }
+            else {
+                this.left(p);
             }
         },
 

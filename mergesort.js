@@ -60,7 +60,6 @@
 
     function _sort(numbers) {
         var r = sort(numbers);
-        console.log(x);
         return r;
     }
 

@@ -3,6 +3,8 @@
     <head>
         <script src="quicksort.js"></script>
         <script src="mergesort.js"></script>
+        <script src="heap.js"></script>
+        <script src="heapsort.js"></script>
         <script src="linked-list.js"></script>
         <script>
             // Usage
@@ -18,6 +20,12 @@
                 console.info('MergeSort');
 
                 result = mergesort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
+
+                console.log(result);
+
+                console.info('HeapSort');
+
+                result = heapsort.sort([413,3123,54,423,756,53,11,87,867,645,423,765,2,54,0,7,576,889]);
 
                 console.log(result);
             })();
